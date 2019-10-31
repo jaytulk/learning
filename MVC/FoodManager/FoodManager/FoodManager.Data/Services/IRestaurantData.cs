@@ -9,5 +9,8 @@ namespace FoodManager.Data.Services
     {
         IEnumerable<Restaurant> GetAll();
         Restaurant GetById(int id);
+        void Add(Restaurant restaurant);
+        void Edit(Restaurant restaurant);
+        void Remove(int id);
     }
 }

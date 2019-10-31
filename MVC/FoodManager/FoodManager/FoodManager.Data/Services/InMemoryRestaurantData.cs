@@ -6,7 +6,7 @@ namespace FoodManager.Data.Services
 {
     public class InMemoryRestaurantData : IRestaurantData
     {
-        private readonly List<Restaurant> _restaurants;
+        private List<Restaurant> _restaurants;
 
         public InMemoryRestaurantData()
         {
@@ -26,6 +26,24 @@ namespace FoodManager.Data.Services
         public Restaurant GetById(int id)
         {
             return _restaurants.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void Add(Restaurant restaurant)
+        {
+            restaurant.Id = _restaurants.Max(x => x.Id) + 1;
+            _restaurants.Add(restaurant);
+        }
+
+        public void Edit(Restaurant restaurant)
+        {
+            _restaurants = _restaurants
+                .Select(x => x.Id == restaurant.Id ? restaurant : x)
+                .ToList();
+        }
+
+        public void Remove(int id)
+        {
+            _restaurants = _restaurants.Where(x => x.Id != id).ToList();
         }
     }
 }
